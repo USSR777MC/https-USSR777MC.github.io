@@ -1,0 +1,64 @@
+/* Basic page setup */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #1e1e2f;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Chat container */
+#room {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 500px;
+}
+
+/* Messages box */
+#messages {
+  background-color: #2a2a40;
+  border: 1px solid #555;
+  border-radius: 8px;
+  padding: 10px;
+  height: 300px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+/* Individual messages */
+#messages div {
+  margin-bottom: 6px;
+  padding: 6px 10px;
+  border-radius: 5px;
+  background-color: #3a3a5a;
+}
+
+/* Input box */
+input {
+  width: calc(100% - 12px);
+  padding: 6px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+/* Buttons */
+button {
+  padding: 8px 15px;
+  margin-right: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: #5a5aff;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background-color: #7a7aff;
+}
