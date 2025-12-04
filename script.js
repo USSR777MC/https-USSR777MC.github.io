@@ -1,55 +1,61 @@
 let localConnection;
 let dataChannel;
+let roomCode = "";
 
-document.getElementById("hostBtn").onclick = async () => {
+// Generate a short random code
+function generateCode() {
+  return Math.random().toString(36).substring(2, 8).toUpperCase();
+}
+
+document.getElementById("hostBtn").onclick = () => {
   const username = document.getElementById("username").value || "Host";
-  
-  localConnection = new RTCPeerConnection();
 
+  roomCode = generateCode();
+  document.getElementById("roomCode").textContent = roomCode;
+  document.getElementById("room").style.display = "block";
+
+  // create peer connection and channel
+  localConnection = new RTCPeerConnection();
   dataChannel = localConnection.createDataChannel("chat");
   dataChannel.onmessage = (e) => addMessage(e.data);
-  
-  const offer = await localConnection.createOffer();
-  await localConnection.setLocalDescription(offer);
 
-  // This is your "room code" — copy it and send to friends
-  alert(JSON.stringify(offer));
-  
-  // Wait for friend’s answer to connect
+  // host-side ICE candidate handler
+  localConnection.onicecandidate = (event) => {
+    if (event.candidate) return; // ignore for now
+  };
+
+  // receive channel for guests
   localConnection.ondatachannel = (event) => {
     const receiveChannel = event.channel;
     receiveChannel.onmessage = (e) => addMessage(e.data);
   };
-  
-  document.getElementById("room").style.display = "block";
+
+  console.log(`Share this code with friends: ${roomCode}`);
 };
 
-document.getElementById("joinBtn").onclick = async () => {
-  const answerStr = prompt("Paste host's code:");
-  const answer = JSON.parse(answerStr);
-
+document.getElementById("joinBtn").onclick = () => {
   const username = document.getElementById("username").value || "Guest";
+  const inputCode = prompt("Enter room code:");
 
+  if (!inputCode) return alert("No code entered!");
+
+  roomCode = inputCode.toUpperCase();
+  document.getElementById("roomCode").textContent = roomCode;
+  document.getElementById("room").style.display = "block";
+
+  // create peer connection
   localConnection = new RTCPeerConnection();
 
   localConnection.ondatachannel = (event) => {
     dataChannel = event.channel;
     dataChannel.onmessage = (e) => addMessage(e.data);
   };
-
-  await localConnection.setRemoteDescription(answer);
-  const answerDesc = await localConnection.createAnswer();
-  await localConnection.setLocalDescription(answerDesc);
-
-  alert(JSON.stringify(answerDesc));
-
-  document.getElementById("room").style.display = "block";
 };
 
 function sendMsg() {
   const msgInput = document.getElementById("msg");
   const msg = msgInput.value;
-  if(msg && dataChannel) {
+  if (msg && dataChannel) {
     dataChannel.send(msg);
     addMessage("Me: " + msg);
   }
