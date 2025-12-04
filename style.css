@@ -17,14 +17,23 @@ body {
 }
 
 /* Messages box */
-#messages {
-  background-color: #2a2a40;
-  border: 1px solid #555;
-  border-radius: 8px;
-  padding: 10px;
-  height: 300px;
-  overflow-y: auto;
-  margin-bottom: 10px;
+#messages div {
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background-color: #3a3a5a; /* bubble color */
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+/* Different color for "Me:" messages */
+#messages div.me {
+  background-color: #5865f2;
+  color: #fff;
+  margin-left: auto;
+  text-align: right;
+}
+
 }
 
 /* Individual messages */
