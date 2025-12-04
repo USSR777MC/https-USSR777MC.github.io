@@ -1,32 +1,22 @@
-/* Basic page setup */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #1e1e2f;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
+/* Chat container and messages */
+#messages {
+  height: 300px;
+  overflow-y: auto;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #2a2a40;
+  scroll-behavior: smooth;
 }
 
-/* Chat container */
-#room {
-  margin-top: 20px;
-  width: 100%;
-  max-width: 500px;
-}
-
-/* Messages box */
 #messages div {
   margin-bottom: 8px;
   padding: 8px 12px;
   border-radius: 12px;
-  background-color: #3a3a5a; /* bubble color */
   max-width: 80%;
   word-wrap: break-word;
+  background-color: #3a3a5a;
 }
 
-/* Different color for "Me:" messages */
 #messages div.me {
   background-color: #5865f2;
   color: #fff;
@@ -34,40 +24,30 @@ body {
   text-align: right;
 }
 
-}
-
-/* Individual messages */
-#messages div {
-  margin-bottom: 6px;
-  padding: 6px 10px;
-  border-radius: 5px;
-  background-color: #3a3a5a;
-}
-
-/* Input box */
-input {
-  width: calc(100% - 12px);
-  padding: 6px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  border: none;
-  outline: none;
-  font-size: 14px;
-}
-
 /* Buttons */
 button {
   padding: 8px 15px;
-  margin-right: 5px;
   border-radius: 5px;
   border: none;
   background-color: #5a5aff;
   color: #fff;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.2s;
 }
 
 button:hover {
   background-color: #7a7aff;
+  transform: scale(1.05);
+}
+
+/* Body background & font */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(120deg, #1e1e2f, #282844);
+  color: #fff;
 }
